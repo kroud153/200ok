@@ -44,8 +44,6 @@
 			</table>
 			<input type="hidden" id="boardIdx" name="boardIdx" th:value="${board.boardIdx }">
 		</form>
-<<<<<<< HEAD
-
 		<a href="#this" id="list" class="btn">목록으로</a>
 		<a href="#this" id="edit" class="btn">수정하기</a>
 		<a href="#this" id="delete" class="btn">삭제하기</a>
@@ -64,27 +62,6 @@
 				frm.submit();
 			});
 
-=======
-		
-		<a href="#this" id="list" class="btn">목록으로</a>
-		<a href="#this" id="edit" class="btn">수정하기</a>
-		<a href="#this" id="delete" class="btn">삭제하기</a>
-	</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#list").on("click", function(){
-				location.href = "/board/openBoardList.do";
-			});
-			
-			$("#edit").on("click", function(){
-				var frm = $("#frm")[0];
-				frm.action = "/board/updateBoard.do";
-				frm.submit();
-			});
-			
->>>>>>> refs/remotes/origin/testmaster
 			$("#delete").on("click", function(){
 				var frm = $("#frm")[0];
 				frm.action = "/board/deleteBoard.do";
