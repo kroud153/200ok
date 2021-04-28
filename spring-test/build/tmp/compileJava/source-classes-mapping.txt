@@ -1,4 +1,0 @@
-ok/springtest/SpringTestApplication.java
- ok.springtest.SpringTestApplication
-ok/springtest/controller/HelloController.java
- ok.springtest.controller.HelloController
