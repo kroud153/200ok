@@ -2,14 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-<<<<<<< HEAD
 	<title>board</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
     <div class="container">
     	<h2>게시글 목록</h2>
-    	<table class="board_list">
+    	<table class="board_Shop_list">
 	        <colgroup>
 	            <col width="15%"/>
 	            <col width="*"/>
@@ -38,44 +37,7 @@
 	        	</tr>
 	        </tbody>
 	    </table>
-	    <a href="/board/openBoardWrite.do" class="btn">글 쓰기</a>
+	    <a href="/board/openBoardList.do" class="btn">게시판으로 돌아가기</a>
     </div>
 </body>
 </html>
-=======
-	<title>naver shopping search</title>
-	<link rel="stylesheet" th:href="@{/css/style.css}"/>
-	<!-- css 가 들어있는 경로 @가 src/main/java/resources/staic 을 의미하는 것으로 보임 -->
-</head>
-<body>
-
-<h1>쇼핑 검색</h1> 
-<div class="container">
-		<form id="frm" name="frm" method="post" action="/board/boardShop.do">
-		<div class="board_search"> 	
-		<input type="text" id="keyword" placeholder="검색어를 입력하세요"> 
-		<!--  <button type="submit" class="btn">검색</button> -->
-		<input type="submit" value="검색" class="btn">
-		</div> 
-		</form>
-	
-<table class="board_shop">
-        <tbody>
-     	<tr th:if="${#lists.size(Shoplist)} > 0" th:each="list : ${Shoplist}">
-     		<td th:text="${Shoplist.title}"></td>
-     		<td th:text="${Shoplist.link}"></td>
-     		<td th:text="${Shoplist.image}"></td>
-     		<td th:text="${Shoplist.lprice}"></td>
-     	</tr> 
-     	<tr th:unless="${#lists.size(list)} > 0">
-     		<td colspan="4">조회된 결과가 없습니다.</td>
-     	</tr>
-     	</tbody>
-
-    </table>
-
-</div>
-</body>
-</html>
-
->>>>>>> refs/remotes/origin/testmaster

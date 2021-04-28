@@ -88,5 +88,4 @@ public class BoardController {
 //		mav.setViewName(keywords);
 //		return mav;
 //	}
-
 }

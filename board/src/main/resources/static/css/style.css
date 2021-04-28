@@ -38,4 +38,8 @@ caption {display:none; width:0; height:0; margin-top:-1px; overflow:hidden; visi
 .btn {margin:5px; padding:5px 11px; color:#fff !important; display:inline-block; background-color:#7D7F82; vertical-align:middle; border-radius:0 !important; cursor:pointer; border:none;}
 .btn:hover {background: #6b9ab8;}
 
+<<<<<<< HEAD
 .file_list a {display:inherit !important;}
+=======
+.file_list a {display:inherit !important;}
+>>>>>>> refs/remotes/origin/testmaster
