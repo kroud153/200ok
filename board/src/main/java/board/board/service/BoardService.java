@@ -10,10 +10,5 @@ public interface BoardService {
 	BoardDto selectBoardDetail (int boardIdx) throws Exception;
 	void updateBoard(BoardDto board) throws Exception;
 	void deleteBoard(int boardIdx) throws Exception;
-<<<<<<< HEAD
-}
-=======
 }
 
-
->>>>>>> refs/remotes/origin/testmaster
