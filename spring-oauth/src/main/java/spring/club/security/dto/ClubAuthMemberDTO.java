@@ -42,7 +42,9 @@ public class ClubAuthMemberDTO extends User  implements OAuth2User {
         this.fromSocial = fromSocial;
 
     }
-
+//Oauth2User는 Map 타입으로 모든 인증 결과를 attributes 라는 이름으로 가지고 있으므로
+//ClubAuthMember 역시 attr 이란 변수를 만들어 주고 getAttributes 메서드를 오버라이딩 함
+//ClubOAuth2UserDetailsService 도 변경해줘야 함.
     @Override
     public Map<String, Object> getAttributes() {
         return this.attr;

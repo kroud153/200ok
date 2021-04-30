@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ClubUserDetailsService  implements UserDetailsService {
 
     private final ClubMemberRepository clubMemberRepository;
-
+//UserDetails 유저정보를 저장
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

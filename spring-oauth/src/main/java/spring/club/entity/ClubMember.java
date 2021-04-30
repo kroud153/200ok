@@ -25,7 +25,7 @@ public class ClubMember extends BaseEntity {
 
     private String name;
 
-    private boolean fromSocial;
+    private boolean fromSocial;//소셜로그인 인지 아닌지
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
