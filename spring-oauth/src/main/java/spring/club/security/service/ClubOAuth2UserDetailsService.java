@@ -6,28 +6,34 @@ import spring.club.entity.ClubMember;
 import spring.club.entity.ClubMemberRole;
 import spring.club.repository.ClubMemberRepository;
 import spring.club.security.dto.ClubAuthMemberDTO;
+import spring.club.security.dto.SessionUser;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
-
-    private final ClubMemberRepository repository;
-
+//1. 첫 방법 - 프로필 넣는 법을 모르겠음
+    private final ClubMemberRepository repository;//사용자 정보를 관리하는 DB 저장소
     private final PasswordEncoder passwordEncoder;
+
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -60,8 +66,8 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
  //       ClubMember member = saveSocialMember(email); //조금 뒤에 사용
 
- //       return oAuth2User;
-    //이메일 주소를 DTO에 저장해서 화면에 언제든지 뛰워줄 수 있게 하기 위해
+  //      return oAuth2User;
+ //   이메일 주소를 DTO에 저장해서 화면에 언제든지 뛰워줄 수 있게 하기 위해
         ClubMember member = saveSocialMember(email);
 
         ClubAuthMemberDTO clubAuthMember = new ClubAuthMemberDTO(
@@ -74,9 +80,12 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
                 oAuth2User.getAttributes()
         );
         clubAuthMember.setName(member.getName());
+        
 
 
         return clubAuthMember;
+        
+
 
     }
 //
@@ -104,5 +113,7 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         return clubMember;
     }
+    
+
 
 }

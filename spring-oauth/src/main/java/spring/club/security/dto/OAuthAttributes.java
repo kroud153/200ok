@@ -4,6 +4,8 @@
 //
 //import lombok.Builder;
 //import lombok.Getter;
+//import spring.club.entity.ClubUser;
+//import spring.club.entity.ClubUserRole;
 //
 //@Getter
 //public class OAuthAttributes {
@@ -35,12 +37,12 @@
 //            .nameAttributeKey(userNameAttributeName)
 //            .build();
 //}
-//public User toEntity() {
-//    return User.builder()
+//public ClubUser toEntity() {
+//    return ClubUser.builder()
 //            .name(name)
 //            .email(email)
 //            .picture(picture)
-//            .role(Role.GUEST)
+//            .role(ClubUserRole.GUEST)
 //            .build();
 //}
 //}

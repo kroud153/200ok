@@ -17,7 +17,7 @@ import java.util.Map;
 @Getter
 @Setter
 @ToString
-public class ClubAuthMemberDTO extends User  implements OAuth2User {
+public class ClubAuthMemberDTO extends User implements OAuth2User {
 
     private String email;
 
