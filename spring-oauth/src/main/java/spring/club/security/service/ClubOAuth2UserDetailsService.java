@@ -57,18 +57,21 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
         
 
         String email = null;
+        String name = null;
 
         if(clientName.equals("Google")){
             email = oAuth2User.getAttribute("email");
+            name = oAuth2User.getAttribute("name");
         }
 
         log.info("EMAIL: " + email);
+        log.info("NAME: " + name);
 
  //       ClubMember member = saveSocialMember(email); //조금 뒤에 사용
 
   //      return oAuth2User;
  //   이메일 주소를 DTO에 저장해서 화면에 언제든지 뛰워줄 수 있게 하기 위해
-        ClubMember member = saveSocialMember(email);
+        ClubMember member = saveSocialMember(email,name);
 
         ClubAuthMemberDTO clubAuthMember = new ClubAuthMemberDTO(
                 member.getEmail(),
@@ -90,7 +93,7 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
     }
 //
 //
-    private ClubMember saveSocialMember(String email){
+    private ClubMember saveSocialMember(String email, String name){
 
         //기존에 동일한 이메일로 가입한 회원이 있는 경우에는 그대로 조회만
         Optional<ClubMember> result = repository.findByEmail(email, true);
@@ -101,7 +104,7 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         //없다면 회원 추가 패스워드는 1111 이름은 그냥 이메일 주소로
         ClubMember clubMember = ClubMember.builder().email(email)
-                .name(email)
+                .name(name)
                 .password( passwordEncoder.encode("1111") )
                 .fromSocial(true)
                 .build();

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SampleController {
 	
 	
-    private final HttpSession httpSession;
+    //private final HttpSession httpSession;
     
 	@GetMapping("/")
     public String index(Model model){
@@ -39,6 +39,25 @@ public class SampleController {
 //            //model.addAttribute("userImg", user.getPicture());
 //        }
         return "index";
+    }
+	@PreAuthorize("permitAll()")
+	@GetMapping("/login/login")
+    public String login(){
+		log.info("login..........");
+        return "login";
+    }
+	@PreAuthorize("permitAll()")
+	@GetMapping("/signup")
+    public String error(Model model){
+        log.info("error..........");
+        
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        log.info(user);
+//        if(user != null) {
+//            model.addAttribute("userName", user.getName());
+//            //model.addAttribute("userImg", user.getPicture());
+//        }
+        return "signup";
     }
 
     @PreAuthorize("permitAll()")
@@ -68,9 +87,14 @@ public class SampleController {
 
         log.info("-------------------------------");
         log.info(clubAuthMember);
-        if(clubAuthMember != null) {
+        
+        if(clubAuthMember.getAttr() != null) {
         	model.addAttribute("userName", clubAuthMember.getName());
         	model.addAttribute("userImg", clubAuthMember.getAttr().get("picture"));
+        }
+        else if(clubAuthMember != null) {
+        	model.addAttribute("userName", clubAuthMember.getName());
+        	
         }
 
     }

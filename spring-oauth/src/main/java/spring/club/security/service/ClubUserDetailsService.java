@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ClubUserDetailsService  implements UserDetailsService {
 
     private final ClubMemberRepository clubMemberRepository;
-//UserDetails 유저정보를 저장
+//UserDetails 유저정보를 처리
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -29,14 +29,14 @@ public class ClubUserDetailsService  implements UserDetailsService {
 
 
         Optional<ClubMember> result = clubMemberRepository.findByEmail(username, false);
-
+        log.info(result);
         if(result.isEmpty()){
             throw new UsernameNotFoundException("Check User Email or from Social ");
         }
 
         ClubMember clubMember = result.get();
 
-        log.info("-----------------------------");
+        log.info("clubmember-----------------------------");
         log.info(clubMember);
 
         ClubAuthMemberDTO clubAuthMember = new ClubAuthMemberDTO(

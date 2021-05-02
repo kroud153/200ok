@@ -3,7 +3,7 @@ package spring.club.config;
 
 import lombok.extern.log4j.Log4j2;
 import spring.club.handler.ClubLoginSuccessHandler;
-import spring.club.security.service.ClubOAuth2UserDetailsService;
+import spring.club.security.service.ClubUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private ClubOAuth2UserDetailsService userDetailsService;
+    private ClubUserDetailsService userDetailsService;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -39,12 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/sample/all").permitAll()
 //                .antMatchers("/sample/member").hasRole("USER");
 
-        http.formLogin();
+    	//로그인 페이지 추가 커스텀 loginPageC loginProcessUrl(), defaultSuccessUrl(), failureUrlC)
+        http.formLogin().loginPage("/login/login").loginProcessingUrl("/login_proc").defaultSuccessUrl("/member");
         http.csrf().disable();
-        http.logout().logoutUrl("/login");
+        http.logout().logoutSuccessUrl("/");
         
-        http.oauth2Login().successHandler(successHandler());
-//        http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(userDetailsService);  //7일 동안 쿠키 유지 (구글 로그인은 쿠키 생성 안됨)
+        http.oauth2Login().successHandler(successHandler());//로그인 성공 후 핸들러 처리
+        http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(userDetailsService);  //7일 동안 쿠키 유지 (구글 로그인은 쿠키 생성 안됨)
 //
 //        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 //        http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);

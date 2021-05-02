@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!--  <head th:replace="fragments/header :: header"> -->
 <head>
 	<meta charset="UTF-8">
-	<title>모두에게 열린 문</title>
+	<title>로그인 페이지</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}"/>
 	<!-- css 가 들어있는 경로 @가 src/main/java/resources/staic 을 의미하는 것으로 보임 -->
 </head>
+
 <body>
-<h1>스프링 부트로 시작하는 웹 서비스</h1>
-   <div class="row">
+<div class="container">
+   <!--  <div th:replace="fragments/bodyHeader :: bodyHeader"/> --> 
+    <h1>로그인</h1>
+    <form th:action="@{/login_proc}" method="post">
+        <div class="form-group">
+            <label th:for="username">이메일</label>
+            <input type="text" name="username" class="form-control" placeholder="이메일 입력해주세요">
+        </div>
+        <div class="form-group">
+            <label th:for="password">비밀번호</label>
+            <input type="password" class="form-control" name="password" placeholder="비밀번호">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
     <div class="col-md-10">
         <div th:if="${not #strings.isEmpty(userName)}">
-     <!--        <img style="width:45px; height:45px" src="/image/user.png" th:src="${userImg}"
-                 class="rounded-circle img-thumbnail img-responsive"> --> 
             <span id="login-user" th:text="${userName}">사용자</span> 님, 안녕하세요.
             <a href="/logout" class="btn btn-sm btn-info active" role="button">Logout</a>
         </div>
@@ -21,11 +33,8 @@
             <a href="/oauth2/authorization/google" class="btn btn-sm btn-success active" role="button">Google Login</a>
         </div>
     </div>
-    <div><a href="/login/login" role="button" class="btn btn-primary float-right">로그인</a></div>
-    <div th:if="${not #strings.isEmpty(userName)}" class="col-md-2">
-        <a href="/board/write.do" role="button" class="btn btn-primary float-right">글 등록</a>
-    </div>
+    <br/>
+  <!--    <div th:replace="fragments/footer :: footer"></div> -->
 </div>
-   <br>
 </body>
 </html>
