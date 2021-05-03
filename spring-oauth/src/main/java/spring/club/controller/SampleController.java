@@ -4,9 +4,11 @@ package spring.club.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import spring.club.security.dto.ClubAccountDTO;
 import spring.club.security.dto.ClubAuthMemberDTO;
 import spring.club.security.dto.SessionUser;
-
+import spring.club.security.service.ClubAccountService;
+import spring.club.security.service.ClubOAuth2UserDetailsService;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +16,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 //final 생성자를 생성해줌 - final 오류 방지
@@ -25,9 +30,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@RequestMapping("/")
 public class SampleController {
 	
+	private final ClubAccountService accountService;
+	
 	
     //private final HttpSession httpSession;
-    
+	@PreAuthorize("permitAll()")
 	@GetMapping("/")
     public String index(Model model){
         log.info("home..........");
@@ -46,18 +53,32 @@ public class SampleController {
 		log.info("login..........");
         return "login";
     }
+	
+//	@PreAuthorize("permitAll()")
+//	@GetMapping("/signup")
+//    public String signupex(){
+//		log.info("singup ex..........");
+//        return "signup";
+//    }
+//	
 	@PreAuthorize("permitAll()")
-	@GetMapping("/signup")
-    public String error(Model model){
-        log.info("error..........");
-        
-//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-//        log.info(user);
-//        if(user != null) {
-//            model.addAttribute("userName", user.getName());
-//            //model.addAttribute("userImg", user.getPicture());
-//        }
+	@GetMapping("/loginUser")
+    public String signup(Model model){
+        log.info("get singup..........");
+        model.addAttribute("userForm",new ClubAccountDTO());
+
         return "signup";
+    }
+	@PreAuthorize("permitAll()")
+    @PostMapping("/loginUser")
+    public String signupUser(@Validated ClubAccountDTO form, BindingResult result){
+    	log.info("post singup..........");
+    	if(result.hasErrors()){
+            return "signup";
+        }
+        accountService.createUser(form);
+
+        return "index";
     }
 
     @PreAuthorize("permitAll()")
@@ -94,7 +115,7 @@ public class SampleController {
         }
         else if(clubAuthMember != null) {
         	model.addAttribute("userName", clubAuthMember.getName());
-        	
+        	model.addAttribute("userImg","/image/user.png");
         }
 
     }
